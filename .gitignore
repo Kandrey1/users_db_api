@@ -1,0 +1,4 @@
+__pycache__/
+*.db
+local.py
+resources/__pycache__/
