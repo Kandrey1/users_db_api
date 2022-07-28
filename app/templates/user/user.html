@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="message__error">
+        {% for msg in get_flashed_messages() %}
+            <div class="flash">{{ msg }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="user__add">
+        <form class="user__add__input" action="" method="post">
+            <div class="add__user">
+                <input class="user__input" type="text" name="user" value="" placeholder="Введите user"/>
+                <button class="button_add" name="add_user">Добавить</button>
+            </div>
+            <div class="show__all__user">
+                <button class="all__user" name="show_user">Показать User в БД</button>
+            </div>
+        </form>
+    </div>
+    <div class="list__all_user">
+        <ol>
+            {% for user in context.users %}
+                <li> User: {{ user.name }}   Добавлен: {{ user.create }}</li>
+            {% endfor%}
+        </ol>
+    </div>
+
+{% endblock %}

@@ -1,5 +1,9 @@
-flask==2.1.2
-Flask-SQLAlchemy==2.5.1
-flask-restful==0.3.9
-
+flask
+Flask-SQLAlchemy
+flask-restful
+SQLAlchemy
+marshmallow
+flask_marshmallow
+flask_sqlalchemy
+marshmallow-sqlalchemy
 requests

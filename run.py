@@ -1,44 +1,32 @@
-from flask import Flask, render_template, url_for
-from flask_sqlalchemy import SQLAlchemy
-from app import api_bp
+from flask import redirect, url_for
+from app import create_app
+from config import Config
+
+app = create_app(Config)
+
+client = app.test_client()
 
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/users.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+from app.models import db
 
+
+@app.before_first_request
+def create_table():
+    db.create_all()
+
+
+from app.api.blueprint import api_bp
+from app.user.blueprint import user_bp
+
+app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(api_bp, url_prefix='/')
 
-db = SQLAlchemy(app)
 
-# ошибка циклического импорта поэтому тут модели
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-
-    pr = db.relationship('Parameters', backref='users', uselist=False)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return f"<users {self.id}>"
+@app.route("/")
+def index():
+    """ Представление главной страницы """
+    return redirect(url_for('user.user'))
 
 
-class Parameters(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    type = db.Column(db.String(50),  unique=True)
-    value = db.Column(db.String(50))
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    def __init__(self, name, type, value, user_id):
-        self.name = name
-        self.type = type
-        self.value = value
-        self.user_id = user_id
-
-
-if __name__ == "__main__":
-    app.run(debug=True, port=3000, host='127.0.0.1')
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000, debug=True)

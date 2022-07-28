@@ -1,4 +1,4 @@
 __pycache__/
-*.db
 local.py
-resources/__pycache__/
+*.sqlite
+.pytest_cache/
