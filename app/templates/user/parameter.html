@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="message__error">
+        {% for msg in get_flashed_messages() %}
+            <div class="flash">{{ msg }}</div>
+        {% endfor %}
+    </div>
+    <div class="parameter__add">
+        <form class="parameter__add__input" action="" method="post">
+            <h3> Выберите пользователя к которому добавить параметры </h3>
+            <select name="case__user">
+                {% for user in context.users %}
+                    <option value="{{ user.id }}" >{{ user.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="add__parameter">
+                <input class="parameter__input" type="text" name="name_p" value="" placeholder="Введите имя параметра"/>
+                <input class="parameter__input" type="text" name="type_p" value="" placeholder="Введите тип параметра"/>
+                <input class="parameter__input" type="text" name="value_p" value="" placeholder="Введите значение параметра"/>
+
+                <button class="button_add" name="add_parameter">Добавить</button>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

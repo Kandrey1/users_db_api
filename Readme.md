@@ -25,25 +25,31 @@
     
     tests:
         good:
-            127.0.0.1:5000/POST/api/parameters/user1/name1/type1/value1
-            127.0.0.1:5000/POST/api/parameters/user2/name2/type2/value2
-            127.0.0.1:5000/POST/api/parameters/user1/name1/type3/value3
+            127.0.0.1:5000/POST/api/parameters/user1/name1/str/car
+            127.0.0.1:5000/POST/api/parameters/user4/name6/int/1234
+            127.0.0.1:5000/POST/api/parameters/user6/name4/str/bird
+            127.0.0.1:5000/POST/api/parameters/user1/name1/str/cat
+            127.0.0.1:5000/POST/api/parameters/user4/name6/int/dog
         error:
-            127.0.0.1:5000/POST/api/parameters/user21/name1/type3/value3
+            127.0.0.1:5000/POST/api/parameters/user2/name1/str/1234
+            127.0.0.1:5000/POST/api/parameters/user4/name1/int/value1
+            127.0.0.1:5000/POST/api/parameters/user6/name1/test/value5
+            127.0.0.1:5000/POST/api/parameters/user21/name1/str/value7
 
 - ###2 endpoint 
 
 
-    http://127.0.0.1:3000/GET/api/parameters/<string:user_name>/<path:path_url>
+    http://127.0.0.1:3000/GET/api/parameters/<string:user_name>
     
     tests:
         good:
-            127.0.0.1:5000/GET/api/parameters/user2/name2/type2
-            127.0.0.1:5000/GET/api/parameters/user1/name1/type3
-            127.0.0.1:5000/GET/api/parameters/user1/name1/type1
+            127.0.0.1:5000/GET/api/parameters/user1?name=name1&type=str
+            127.0.0.1:5000/GET/api/parameters/user6?name=&type=str
+            127.0.0.1:5000/GET/api/parameters/user9?name=&type=int
         error:
-            127.0.0.1:5000/GET/api/parameters/user21/name1/type3
-            127.0.0.1:5000/GET/api/parameters/user2/name1
+            127.0.0.1:5000/GET/api/parameters/user39?name=&type=
+            127.0.0.1:5000/GET/api/parameters/user9?name=&type=
+            127.0.0.1:5000/GET/api/parameters/user9?name=name1&type=
 - ###3 endpoint 
 
 
@@ -51,12 +57,10 @@
     
     tests:
         good:
-            127.0.0.1:5000/GET/api/parameters/user4
-            127.0.0.1:5000/GET/api/parameters/user7
-            127.0.0.1:5000/GET/api/parameters/user1
+            127.0.0.1:5000/GET/api/parameters?user=user3
+            127.0.0.1:5000/GET/api/parameters?user=user6
         error:
-            127.0.0.1:5000/GET/api/parameters/user21
-            127.0.0.1:5000/GET/api/parameters/userqw
+            127.0.0.1:5000/GET/api/parameters?user=user43
     
 
 - ###4 endpoint 
@@ -69,18 +73,18 @@
         ---------------------------------------------------
             data = {"Query": [{ "Operation":"SetParam", 
                                 "Name":"name6", 
-                                "Type":"type6", 
-                                "Value":"258" }]}
+                                "Type":"str", 
+                                "Value":"car" }]}
             127.0.0.1:5000/POST/api/user4
             
         ---------------------------------------------------    
             data = {"Query": [{ "Operation":"SetParam", 
                                 "Name":"name6", 
-                                "Type":"type6", 
-                                "Value":"258" },
+                                "Type":"str", 
+                                "Value":"window" },
                               { "Operation":"SetParam", 
                                 "Name":"name7", 
-                                "Type":"type7", 
+                                "Type":"int", 
                                 "Value":"856" }]}
 
             127.0.0.1:5000/POST/api/user7

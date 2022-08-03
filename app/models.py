@@ -14,7 +14,7 @@ class User(db.Model):
 
     create = db.Column(db.DateTime, default=datetime.datetime.today())
 
-    param = db.relationship('Parameter', backref='user', uselist=False, )
+    param = db.relationship('Parameter', backref='user', uselist=True )
 
     def __init__(self, name):
         self.name = name

@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <title>{{ context.title }}</title>
     <link type="text/css" href="#" rel="stylesheet">
-
+    <header class="header">
+            <div class="header__container">
+                    <nav class="header__menu">
+                        <ul class="menu__list">
+                            <li class="menu__item">
+                                <a href="{{ url_for('user.user') }}" class="menu__link">Пользователь</a>
+                            </li>
+                            <li class="menu__item">
+                                <a href="{{ url_for('user.parameter') }}" class="menu__link">Параметры</a>
+                            </li>
+                        </ul>
+                    </nav>
+            </div>
+        </header>
 </head>
 <body class="body">
     <div class="wrapper">
